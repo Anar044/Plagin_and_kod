@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Project>
+    <PropertyGroup>
+        <PluginHostPath>$([MSBuild]::GetRegistryValueFromView('HKEY_LOCAL_MACHINE\SOFTWARE\iiko\RMS\Front', 'Path', null, RegistryView.Registry64, RegistryView.Registry32))Resto.Front.Api.Host.exe</PluginHostPath>
+    </PropertyGroup>
+    <PropertyGroup>
+        <PluginTargetPath>$(TargetPath.Replace('\','/'))</PluginTargetPath>
+        <PluginTargetDir>$(TargetDir.Replace('\','/'))</PluginTargetDir>
+    </PropertyGroup>
+</Project>

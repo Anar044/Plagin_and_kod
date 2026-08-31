@@ -1,0 +1,152 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <LangVersion>10.0</LangVersion>
+        <Authors>SmartHoreca</Authors>
+        <DefineConstants>$(APIVersion)</DefineConstants>
+    </PropertyGroup>
+
+
+
+	<ItemGroup Condition="$(APIVersion)=='V8P5'">
+		<!-- Добавляем DLL как встроенный ресурс -->
+		<EmbeddedResource Include="..\Binaries\SQLite.Interop.dll">
+			<LogicalName>SQLite.Interop.dll</LogicalName>
+		</EmbeddedResource>
+	</ItemGroup>
+
+
+	<ItemGroup Label="MyProject" Condition="$(APIVersion)==''">
+        <PackageReference Include="Resto.Front.Api.V8" Version="8.7.6032" />
+        <!--        <PackageReference Include="Resto.Front.Api.V8Preview5" Version="8.4.6018-alpha"/>-->
+    </ItemGroup>
+    <ItemGroup Label="MyProject" Condition="$(APIVersion)=='V8P5'">
+        <PackageReference Include="Resto.Front.Api.V8Preview5" Version="8.4.6018-alpha" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Remove="TestDto\**" />
+        <EmbeddedResource Remove="TestDto\**" />
+        <None Remove="TestDto\**" />
+        <Compile Remove="Dto\Buttons\PluginToServerSummaryOfRestaurant_old.cs" />
+        <Compile Remove="LocalDto\**" />
+        <EmbeddedResource Remove="LocalDto\**" />
+        <None Remove="LocalDto\**" />
+        <Compile Remove="DeliveryOrderChangeNotifier.cs" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="10.0.9">
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.9">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Costura.Fody" Version="6.2.0">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="linq2db.SQLite" Version="5.4.1">
+        
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Nerdbank.GitVersioning" Version="3.10.85">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="System.Net.Http" Version="4.3.4">
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="System.Net.Http.WinHttpHandler" Version="10.0.9">
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+        <PackageReference Include="Resto.Front.Api.PluginPackaging" Version="1.0.51">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.4">
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+        <PackageReference Include="SocketIOClient" Version="4.0.4">
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+        <PackageReference Include="SocketIOClient.Serializer.NewtonsoftJson" Version="4.0.0.1">
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+        <PackageReference Include="System.Reactive" Version="4.2.0">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+
+    </ItemGroup>
+
+    <ItemGroup>
+        <Compile Update="Properties\Settings.Designer.cs">
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+        </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Configuration" />
+        <Reference Include="System.IO.Compression" />
+    </ItemGroup>
+
+
+    <ItemGroup>
+        <FilesToDelete Include="$(OutputPath)\System.ComponentModel.Annotations.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Drawing.Common.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Reactive.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.ValueTuple.dll" />
+
+        <FilesToDelete Include="$(OutputPath)\Costura.dll" />
+        <FilesToDelete Include="$(OutputPath)\linq2db.dll" />
+        <!-- Microsoft.Bcl.AsyncInterfaces / System.Threading.Tasks.Extensions НЕ удаляем:
+             нужны рядом с DLL на Host 8.4 (unify версий без bindingRedirect в dll.config). -->
+        <FilesToDelete Include="$(OutputPath)\Newtonsoft.Json.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIO.Core.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIO.Serializer.Core.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIO.Serializer.NewtonsoftJson.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIO.Serializer.SystemTextJson.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIOClient.Serializer.NewtonsoftJson.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIOClient.Serializer.SystemTextJson.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIOClient.Serializer.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIOClient.Common.dll" />
+        <FilesToDelete Include="$(OutputPath)\SocketIOClient.dll" />
+
+        <FilesToDelete Include="$(OutputPath)\System.Buffers.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Memory.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Net.WebSockets.Client.Managed.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Numerics.Vectors.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Text.Encodings.Web.dll" />
+        <FilesToDelete Include="$(OutputPath)\System.Text.Json.dll" />
+
+
+    </ItemGroup>
+
+    <ItemGroup>
+        <!-- НЕ удаляем папки x64 и x86, так как они содержат SQLite.Interop.dll -->
+         <DirsToDelete Include="$(OutputPath)\x64\" />
+         <!--<DirsToDelete Include="$(OutputPath)\x86\" />-->
+    </ItemGroup>
+
+    <Target Name="CleanUpOutput" AfterTargets="Build">
+        <Delete Files="@(FilesToDelete)" />
+        <!-- НЕ удаляем папки x64 и x86, так как они содержат SQLite.Interop.dll -->
+         <RemoveDir Directories="@(DirsToDelete)" />
+    </Target>
+
+
+</Project>

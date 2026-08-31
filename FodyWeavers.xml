@@ -1,0 +1,9 @@
+﻿<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
+    <Costura>
+        <!-- Рядом с плагином (см. csproj) — иначе на Host 8.4 без bindingRedirect падает DisposeAsync у linq2db. -->
+        <ExcludeAssemblies>
+            Microsoft.Bcl.AsyncInterfaces
+            System.Threading.Tasks.Extensions
+        </ExcludeAssemblies>
+    </Costura>
+</Weavers>
